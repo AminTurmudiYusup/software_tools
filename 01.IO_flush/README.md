@@ -1,39 +1,54 @@
 # 1.1. IO_Flush: эксперимент
 
-1. Создайте файл и напишите программу на языке C
-
-![c_1](https://github.com/user-attachments/assets/b91859fe-66ea-4500-86ca-8f09d04c48d2)
-
-
-2. скомпилируйте программу
-
-   ![c2](https://github.com/user-attachments/assets/aacf2c34-2251-4e38-b303-b8cf5dc86869)
-
-   
-3. и попробуйте запустить программу
-   
-   ![c3](https://github.com/user-attachments/assets/542c8b13-a429-449a-a85c-9a64b57e1223)
+Прежде чем писать простую программу с использованием flush.
+Нам нужно понять, что означают буфер и flush?
+1. Буферизация означает: процесс временного хранения данных в буфере (зарезервированной области памяти) перед их отправкой по назначению
+2. Сброс: процесс очистки буфера и немедленной отправки его содержимого по назначению.
 
 
-4. удалите fflush
-   
-  ![c4](https://github.com/user-attachments/assets/50e64188-170b-422c-baf9-a9861927364a)
+Я буду использовать этот сценарий
+1. создать простую программу C
+   - вывести стандартный вывод и затем сбросить
+   - вывести стандартную ошибку и затем сбросить
+
+![c1](https://github.com/user-attachments/assets/c1eb2d17-0553-4197-9a5a-73fec4eb1730)
 
 
-5. добавить \n
+2. скомпилировать программу
 
- ![c5](https://github.com/user-attachments/assets/8f47d387-c1ff-4eb4-beae-244772bf45df)
-
-   
-6. запустите программу и попробуйте записать вывод в файл
-
- ![c7](https://github.com/user-attachments/assets/906411e0-5d87-4004-b0f5-50e1080efa15)
+![c2](https://github.com/user-attachments/assets/ad800e4d-bbb3-4d3e-bc15-b08e5c8d59c1)
 
 
+3. запустить программу
 
-7. Результат
-
-![c6](https://github.com/user-attachments/assets/2d07bd0a-9eda-4598-a78e-4d5fa0817fb5)
-
+![c3](https://github.com/user-attachments/assets/eb1260b9-3974-415f-908b-7d3fb315e1ea)
 
 
+4. удалить сброс
+    - когда сброс удален, программа не будет писать напрямую, если мы не добавим \n в конец стандартного ввода и вывода
+  
+![c4](https://github.com/user-attachments/assets/e00a66a0-5692-49b9-a7f6-95345fa17c50)
+
+      
+5. добавить \n в конец stdoutput и stderror
+
+![c5](https://github.com/user-attachments/assets/398510c1-1771-4b2b-9f7a-7d021cf2492e)
+
+
+![c6](https://github.com/user-attachments/assets/c5f138ce-e02a-4933-81c9-76b838f4acea)
+
+
+
+6. вывести stdoutput, stderror на экран и записать вывод в файл
+
+
+![c7](https://github.com/user-attachments/assets/440d2332-17af-4f13-a285-cd77d746dacb)
+
+
+![c8](https://github.com/user-attachments/assets/14a8f3a6-f25a-4f67-8685-1e8f673ee781)
+
+
+
+## Вывод: сброс бывает двух типов
+1. Автоматический сброс: происходит при печати символа новой строки (с такими функциями, как puts, printf и т. д.).
+2. Ручной сброс: с помощью fflush(stdout);
