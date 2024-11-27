@@ -22,5 +22,45 @@ int main(int argc, char *argv[]) {
         return 1;
     }
 
-return 0;
+    size_t total_size = num_pages * PAGE_SIZE;
+    char *memory = malloc(total_size);
+
+    if (memory == NULL) {
+        perror("Memory allocation failed");
+        return 1;
+    }
+
+ printf("Allocated %zu bytes of memory.\n", total_size);
+
+ for (size_t i = 0; i < num_pages; i++) {
+        char *page = memory + (i * PAGE_SIZE); // Calculate the address of the current page
+
+        if (strcmp(operation, "write") == 0) {
+            // Write operation: Fill each byte of the page with a pattern
+            for (size_t j = 0; j < PAGE_SIZE; j++) {
+                page[j] = (char)(i % 256); // Assign a repeating pattern
+            }
+            printf("Wrote to page %zu at address %p.\n", i, (void *)page);
+
+        } else if (strcmp(operation, "read") == 0) {
+            // Read operation: Sum all values in the page
+            unsigned long long sum = 0;
+            for (size_t j = 0; j < PAGE_SIZE; j++) {
+                sum += page[j];
+            }
+            printf("Read from page %zu at address %p, checksum: %llu.\n", i, (void *)page, sum);
+        }
+
+        // Pause after every PAUSE_FREQUENCY pages
+        if (i % PAUSE_FREQUENCY == 0 && i != 0) {
+            printf("Pausing for %d microseconds...\n", PAUSE_DURATION);
+            usleep(PAUSE_DURATION); // Pause for PAUSE_DURATION microseconds
+        }
+    }
+
+
+ free(memory); // Free the allocated memory
+ printf("Memory freed.\n");
+
+    return 0;
 }
