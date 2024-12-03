@@ -13,9 +13,9 @@ echo "Compilation successful."
 # Run the program with arguments
 # Usage: ./overcommit <number_of_pages> <operation>
 echo "Running write operation..."
-./overcommit 4194304 write
+./overcommit 128 write
 
 echo "Running read operation..."
-./overcommit 4194304 read
+./overcommit 128 read
 
 echo "Done!"
