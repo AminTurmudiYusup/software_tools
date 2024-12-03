@@ -1,0 +1,50 @@
+name: CI Pipeline for Running Two Bash Scripts
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  run-bash-scripts:
+    runs-on: ubuntu-latest
+
+    steps:
+    # Step 1: Check out the repository
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    # Step 2: Install GCC (required for C compilation)
+    - name: Install GCC
+      run: sudo apt-get update && sudo apt-get install -y build-essential
+
+    # Step 3: Ensure the scripts have execution permissions
+    - name: Make Bash Scripts Executable
+      run: |
+        chmod +x 01.IO_flush/bash_script.sh
+        chmod +x 02_MEM_OVERCOMMIT/over_commit.sh
+
+    # Step 4: Run the Bash script from 01.IO_flush
+    - name: Run Bash Script 1 (IO_flush)
+      run: bash 01.IO_flush/bash_script.sh
+
+    # Step 5: Upload Executable from 01.IO_flush as an Artifact
+    - name: Upload Artifact 1
+      uses: actions/upload-artifact@v3
+      with:
+        name: io_flush_executable
+        path: 01.IO_flush/program  # Replace 'program1' with the actual filename
+
+    # Step 6: Run the Bash script from 02_MEM_OVERCOMMIT
+    - name: Run Bash Script 2 (MEM_OVERCOMMIT)
+      run: bash 02_MEM_OVERCOMMIT/over_commit.sh
+
+    # Step 7: Upload Executable from 02_MEM_OVERCOMMIT as an Artifact
+    - name: Upload Artifact 2
+      uses: actions/upload-artifact@v3
+      with:
+        name: mem_overcommit_executable
+        path: 02_MEM_OVERCOMMIT/overcommit  # Replace 'program2' with the actual filename
