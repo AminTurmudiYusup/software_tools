@@ -57,7 +57,7 @@ int main(int argc, char *argv[]) {
             printNAndWriteFile();
             break;
         default:
-            fprintf(stderr, "Unknown option: %c\n", option);
+            fprintf(stderr, "Option Not Found: %c\n", option);
             return 1;
     }
 
