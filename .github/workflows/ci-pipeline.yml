@@ -58,26 +58,18 @@ jobs:
       uses: actions/checkout@v3
 
     # Step 2: Install RISC-V GCC and Spike
-    - name: Install RISC-V GCC and Spike
+    - name: Install RISC-V Toolchain
       run: |
         sudo apt-get update
         sudo apt-get install -y build-essential qemu-system-misc
-        # Install RISC-V GCC
-        sudo apt-get install -y gcc-riscv64-unknown-elf
-        # Optionally install Spike (if using)
-        # git clone https://github.com/riscv-software-src/riscv-isa-sim.git
-        # cd riscv-isa-sim
-        # mkdir build && cd build
-        # ../configure --prefix=/usr
-        # make -j$(nproc)
-        # sudo make install
+        sudo apt-get install -y gcc-riscv64-unknown-elf gcc-riscv64-unknown-elf-newlib
 
     # Step 3: Build the project with CMake
     - name: Configure and Build with CMake
       run: |
         mkdir build
         cd build
-         cmake ../03.RISC-Z 
+        cmake ../03.RISC-Z
         cmake --build .
 
     # Step 4: Run unit tests using QEMU
