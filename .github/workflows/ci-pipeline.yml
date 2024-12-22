@@ -60,6 +60,7 @@ jobs:
 
     # Step 2: Cache Dependencies (RISC-V Toolchain)
     - name: Cache RISC-V Toolchain
+      id: cache-riscv
       uses: actions/cache@v3
       with:
         path: /opt/riscv
@@ -69,6 +70,7 @@ jobs:
 
     # Step 3: Install Dependencies (if cache not restored)
     - name: Install Dependencies
+      if: steps.cache-riscv.outputs.cache-hit != 'true'
       run: |
         sudo apt-get update
         sudo apt-get install -y build-essential git flex bison libgmp-dev libmpc-dev libmpfr-dev texinfo
@@ -79,7 +81,7 @@ jobs:
 
     # Step 5: Clone and Build RISC-V Toolchain (if not cached)
     - name: Build RISC-V Toolchain
-      if: !steps.cache.outputs.cache-hit
+      if: steps.cache-riscv.outputs.cache-hit != 'true'
       run: |
         git clone https://github.com/riscv-collab/riscv-gnu-toolchain.git
         cd riscv-gnu-toolchain
