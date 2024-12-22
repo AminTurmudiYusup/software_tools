@@ -1,4 +1,4 @@
-name: CI Pipeline for Running Two Bash Scripts
+name: CI Pipeline for Running Two Bash Scripts and RISC-V
 
 on:
   push:
@@ -36,7 +36,7 @@ jobs:
       uses: actions/upload-artifact@v3
       with:
         name: io_flush_executable
-        path: 01.IO_flush/program  # Replace 'program1' with the actual filename
+        path: 01.IO_flush/program  # Replace 'program' with the actual filename
 
     # Step 6: Run the Bash script from 02_MEM_OVERCOMMIT
     - name: Run Bash Script 2 (MEM_OVERCOMMIT)
@@ -47,4 +47,41 @@ jobs:
       uses: actions/upload-artifact@v3
       with:
         name: mem_overcommit_executable
-        path: 02_MEM_OVERCOMMIT/overcommit  # Replace 'program2' with the actual filename
+        path: 02_MEM_OVERCOMMIT/overcommit  # Replace 'overcommit' with the actual filename
+
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+    # Step 1: Check out the repository
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    # Step 2: Install RISC-V GCC and Spike
+    - name: Install RISC-V GCC and Spike
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y build-essential qemu-system-misc
+        # Install RISC-V GCC
+        sudo apt-get install -y gcc-riscv64-unknown-elf
+        # Optionally install Spike (if using)
+        # git clone https://github.com/riscv-software-src/riscv-isa-sim.git
+        # cd riscv-isa-sim
+        # mkdir build && cd build
+        # ../configure --prefix=/usr
+        # make -j$(nproc)
+        # sudo make install
+
+    # Step 3: Build the project with CMake
+    - name: Configure and Build with CMake
+      run: |
+        mkdir build
+        cd build
+        cmake ..
+        cmake --build .
+
+    # Step 4: Run unit tests using QEMU
+    - name: Run Unit Tests
+      run: |
+        cd build
+        qemu-riscv64 ./tests
