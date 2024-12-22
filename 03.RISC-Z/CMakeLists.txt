@@ -7,15 +7,15 @@ set(CMAKE_ASM_COMPILER riscv64-unknown-elf-as)
 set(CMAKE_C_FLAGS "-march=rv64imac -mabi=lp64 -O2")
 set(CMAKE_EXE_LINKER_FLAGS "-nostartfiles")
 
+# Define the source directory
+set(SOURCE_DIR "${CMAKE_SOURCE_DIR}/03.RISC-Z")
+
 # List of source files
 set(SOURCES
-    03.RISC-Z/factorial.S
-    03.RISC-Z/fibonacci.S
-    03.RISC-Z/unit_tests.c
+    ${SOURCE_DIR}/factorial.S
+    ${SOURCE_DIR}/fibonacci.S
+    ${SOURCE_DIR}/unit_test.c
 )
 
 # Add the executable target
 add_executable(tests ${SOURCES})
-
-# Link with any required libraries
-target_link_libraries(tests)
