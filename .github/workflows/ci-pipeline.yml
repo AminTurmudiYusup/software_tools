@@ -57,14 +57,22 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v3
 
-    # Step 2: Install RISC-V GCC and Spike
-    - name: Install RISC-V Toolchain
+    # Step 2: Install Prerequisites
+    - name: Install Dependencies
       run: |
         sudo apt-get update
-        sudo apt-get install -y build-essential qemu-system-misc
-        sudo apt-get install -y gcc-riscv64-unknown-elf gcc-riscv64-unknown-elf-newlib
+        sudo apt-get install -y build-essential git flex bison libgmp-dev libmpc-dev libmpfr-dev texinfo
 
-    # Step 3: Build the project with CMake
+    # Step 3: Clone and Build RISC-V Toolchain with Newlib
+    - name: Build RISC-V Toolchain
+      run: |
+        git clone https://github.com/riscv-collab/riscv-gnu-toolchain.git
+        cd riscv-gnu-toolchain
+        ./configure --prefix=/opt/riscv --with-arch=rv64imac --with-abi=lp64
+        make newlib -j$(nproc)
+        echo 'export PATH=/opt/riscv/bin:$PATH' >> $GITHUB_ENV
+
+    # Step 4: Build the Project with CMake
     - name: Configure and Build with CMake
       run: |
         mkdir build
@@ -72,7 +80,7 @@ jobs:
         cmake ../03.RISC-Z
         cmake --build .
 
-    # Step 4: Run unit tests using QEMU
+    # Step 5: Run Unit Tests using QEMU
     - name: Run Unit Tests
       run: |
         cd build
