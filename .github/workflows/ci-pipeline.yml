@@ -57,7 +57,7 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v3
 
-    # Step 2: Install Prerequisites
+   # Step 2: Install Prerequisites
     - name: Install Dependencies
       run: |
         sudo apt-get update
@@ -73,7 +73,7 @@ jobs:
 
     # Step 4: Add RISC-V Toolchain to PATH
     - name: Add RISC-V Toolchain to PATH
-      run: echo "/opt/riscv/bin" >> $GITHUB_ENV
+      run: echo "PATH=/opt/riscv/bin:\$PATH" >> $GITHUB_ENV
 
     # Step 5: Build the Project with CMake
     - name: Configure and Build with CMake
