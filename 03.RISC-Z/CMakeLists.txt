@@ -9,10 +9,13 @@ set(CMAKE_EXE_LINKER_FLAGS "-nostartfiles")
 
 # List of source files
 set(SOURCES
-    factorial.S
-    fibonacci.S
-    unit_tests.c
+    03.RISC-Z/factorial.S
+    03.RISC-Z/fibonacci.S
+    03.RISC-Z/unit_tests.c
 )
 
 # Add the executable target
 add_executable(tests ${SOURCES})
+
+# Link with any required libraries
+target_link_libraries(tests)
