@@ -77,7 +77,7 @@ jobs:
       run: |
         mkdir build
         cd build
-        cmake ..
+         cmake ../03.RISC-Z 
         cmake --build .
 
     # Step 4: Run unit tests using QEMU
