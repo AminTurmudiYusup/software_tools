@@ -5,10 +5,12 @@ project(RISCV_Project)
 set(CMAKE_C_COMPILER riscv64-unknown-elf-gcc)
 set(CMAKE_ASM_COMPILER riscv64-unknown-elf-as)
 
-# Compiler and assembler flags
+# Compiler and linker flags
 set(CMAKE_C_FLAGS "-march=rv64imac -mabi=lp64 -msoft-float -O2 -g")
-set(CMAKE_ASM_FLAGS "-march=rv64imac -mabi=lp64 -msoft-float -O2 -g")
 set(CMAKE_EXE_LINKER_FLAGS "-nostartfiles -msoft-float -e main")
+
+# Assembler flags (remove -msoft-float)
+set(CMAKE_ASM_FLAGS "-march=rv64imac -mabi=lp64 -O2 -g")
 
 # Enable ASM language support
 enable_language(ASM)
