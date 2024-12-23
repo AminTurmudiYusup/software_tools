@@ -17,6 +17,9 @@ set(SOURCES
     ${SOURCE_DIR}/unit_test.c
 )
 
+# Specify ASM files explicitly
+enable_language(ASM)
+
 # Debug Output: Print source files
 message(STATUS "Source files: ${SOURCES}")
 
