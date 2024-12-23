@@ -14,7 +14,7 @@ enable_language(ASM)
 set(SOURCES
     factorial.S
     fibonacci.S
-    unit_test.c
+    unit_tests.c
 )
 
 # Debug Output: Print source files
