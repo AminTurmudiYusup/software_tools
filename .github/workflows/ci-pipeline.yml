@@ -57,7 +57,7 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v3
 
-  # Step 2: Install Prerequisites
+    # Step 2: Install Prerequisites
     - name: Install Dependencies
       run: |
         sudo apt-get update
@@ -65,8 +65,7 @@ jobs:
 
     # Step 3: Install CMake
     - name: Install CMake
-      run: |
-        sudo apt-get install -y cmake
+      run: sudo apt-get install -y cmake
 
     # Step 4: Clone and Build RISC-V Toolchain with Newlib
     - name: Build RISC-V Toolchain
@@ -80,12 +79,13 @@ jobs:
     - name: Add RISC-V Toolchain to PATH
       run: echo "PATH=/opt/riscv/bin:/usr/bin:/bin:\$PATH" >> $GITHUB_ENV
 
-    # Step 6: Build the Project with CMake
+    # Step 6: Configure and Build the Project with CMake
     - name: Configure and Build with CMake
       run: |
+        cd 03.RISC-Z
         mkdir -p build
         cd build
-        cmake ../03.RISC-Z
+        cmake ..
         cmake --build .
       env:
         PATH: /opt/riscv/bin:/usr/bin:/bin:$PATH
@@ -93,7 +93,7 @@ jobs:
     # Step 7: Run Unit Tests using QEMU
     - name: Run Unit Tests
       run: |
-        cd build
+        cd 03.RISC-Z/build
         qemu-riscv64 ./tests
       env:
         PATH: /opt/riscv/bin:/usr/bin:/bin:$PATH
