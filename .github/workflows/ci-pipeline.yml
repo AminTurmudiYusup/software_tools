@@ -74,9 +74,9 @@ jobs:
     # Step 5: Install QEMU
     - name: Install QEMU
       run: |
-        wget https://github.com/multiarch/qemu-user-static/releases/download/v7.2.0/qemu-riscv64-static
-        chmod +x qemu-riscv64-static
-        sudo mv qemu-riscv64-static /usr/bin/qemu-riscv64
+        sudo apt-get update
+        sudo apt-get install -y qemu-user-static
+
 
     # Step 6: Clone and Build RISC-V Toolchain with Newlib
     - name: Build RISC-V Toolchain
