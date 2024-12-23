@@ -1,20 +1,20 @@
-    .data
-result: .word 0          # Memory location to store the result
-
-    .text
-    .globl factorial      # Export the function name for C
+.section .text
+.global factorial
 
 factorial:
-    # Input: n in a0
-    # Output: Factorial(n) in a0
-    li t1, 1             # Initialize result in t1
-
-factorial_loop:
-    beq a0, 0, done      # If n == 0, go to done
-    mul t1, t1, a0       # t1 = t1 * a0
-    addi a0, a0, -1      # Decrement a0
-    j factorial_loop     # Repeat
+    # Base case: if (n == 0), return 1
+    beq a0, x0, done
+    
+    # Recursive case: return n * factorial(n-1)
+    addi sp, sp, -8         # Allocate stack space
+    sw a0, 0(sp)            # Save a0 (n) on the stack
+    addi a0, a0, -1         # n = n - 1
+    jal ra, factorial       # Call factorial(n-1)
+    lw t0, 0(sp)            # Restore a0 (n) into t0
+    addi sp, sp, 8          # Deallocate stack space
+    mul a0, a0, t0          # result = n * result_of_factorial(n-1)
+    ret                     # Return result
 
 done:
-    mv a0, t1            # Return the result in a0
-    ret                  # Return to caller
+    li a0, 1                # Return 1
+    ret
