@@ -71,6 +71,12 @@ jobs:
     - name: Install CMake
       run: sudo apt-get install -y cmake
 
+    # Step: Install QEMU
+    - name: Install QEMU
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y qemu qemu-user qemu-user-static
+
     # Step 5: Clone and Build RISC-V Toolchain with Newlib
     - name: Build RISC-V Toolchain
       run: |
