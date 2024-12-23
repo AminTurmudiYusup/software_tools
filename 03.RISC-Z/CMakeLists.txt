@@ -8,14 +8,20 @@ set(CMAKE_C_FLAGS "-march=rv64imac -mabi=lp64 -O2")
 set(CMAKE_EXE_LINKER_FLAGS "-nostartfiles")
 
 # Define the source directory
-set(SOURCE_DIR "${CMAKE_SOURCE_DIR}")
+set(SOURCE_DIR "${CMAKE_SOURCE_DIR}/03.RISC-Z")
 
 # List of source files
 set(SOURCES
     ${SOURCE_DIR}/factorial.S
     ${SOURCE_DIR}/fibonacci.S
-    ${SOURCE_DIR}/unit_test.c
+    ${SOURCE_DIR}/unit_tests.c
 )
+
+# Check if unit_tests.c exists
+file(TO_NATIVE_PATH "${SOURCE_DIR}/unit_tests.c" UNIT_TEST_PATH)
+if(NOT EXISTS "${UNIT_TEST_PATH}")
+    message(FATAL_ERROR "unit_tests.c does not exist at: ${UNIT_TEST_PATH}")
+endif()
 
 # Specify ASM files explicitly
 enable_language(ASM)
