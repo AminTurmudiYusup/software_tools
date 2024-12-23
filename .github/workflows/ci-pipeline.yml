@@ -76,6 +76,12 @@ jobs:
       run: |
         sudo apt-get update
         sudo apt-get install -y qemu-user-static
+        sudo ln -s /usr/bin/qemu-riscv64-static /usr/bin/qemu-riscv64
+    
+    # Step 6: Verify QEMU Installation
+    - name: Verify QEMU Installation
+      run: qemu-riscv64 --version
+
 
 
     # Step 6: Clone and Build RISC-V Toolchain with Newlib
