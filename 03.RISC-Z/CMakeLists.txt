@@ -7,24 +7,15 @@ set(CMAKE_ASM_COMPILER riscv64-unknown-elf-as)
 set(CMAKE_C_FLAGS "-march=rv64imac -mabi=lp64 -O2")
 set(CMAKE_EXE_LINKER_FLAGS "-nostartfiles")
 
-# Define the source directory
-set(SOURCE_DIR "${CMAKE_SOURCE_DIR}/03.RISC-Z")
-
-# List of source files
-set(SOURCES
-    ${SOURCE_DIR}/factorial.S
-    ${SOURCE_DIR}/fibonacci.S
-    ${SOURCE_DIR}/unit_tests.c
-)
-
-# Check if unit_tests.c exists
-file(TO_NATIVE_PATH "${SOURCE_DIR}/unit_tests.c" UNIT_TEST_PATH)
-if(NOT EXISTS "${UNIT_TEST_PATH}")
-    message(FATAL_ERROR "unit_tests.c does not exist at: ${UNIT_TEST_PATH}")
-endif()
-
 # Specify ASM files explicitly
 enable_language(ASM)
+
+# List of source files (relative to the current directory)
+set(SOURCES
+    factorial.S
+    fibonacci.S
+    unit_test.c
+)
 
 # Debug Output: Print source files
 message(STATUS "Source files: ${SOURCES}")
