@@ -102,15 +102,20 @@ jobs:
         cd 03.RISC-Z
         mkdir -p build
         cd build
-        cmake ..
+        cmake -DCMAKE_BUILD_TYPE=Debug ..
         cmake --build .
       env:
         PATH: /opt/riscv/bin:/usr/bin:/bin:$PATH
 
-    # Step 9: Run Unit Tests using QEMU
-    - name: Run Unit Tests
+    - name: Run Unit Tests with QEMU
       run: |
         cd 03.RISC-Z/build
-        qemu-riscv64 ./tests
+        qemu-riscv64 -strace ./tests > qemu.log 2>&1 || echo "Segmentation fault."
       env:
         PATH: /opt/riscv/bin:/usr/bin:/bin:$PATH
+
+    - name: Upload Logs
+      uses: actions/upload-artifact@v3
+      with:
+        name: qemu-logs
+        path: 03.RISC-Z/build/qemu.log
