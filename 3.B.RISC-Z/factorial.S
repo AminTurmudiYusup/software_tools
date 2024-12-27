@@ -2,7 +2,7 @@
     .global factorial
 
 factorial:
-    addi sp, sp, -16          # Allocate stack space
+    addi sp, sp, -16          # Allocate stack space (16-byte aligned)
     sw ra, 12(sp)             # Save return address
     sw a0, 0(sp)              # Save n
 
