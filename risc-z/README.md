@@ -1,8 +1,9 @@
 ## Предварительное условие
-1. Убедитесь, что CMake уже включен в CI/CD github (эти инструменты используются для автоматизации процесса компиляции и связывания вашего исходного кода в исполняемую программу)
+1. Убедитесь, что Make уже включен в CI/CD github (эти инструменты используются для автоматизации процесса компиляции и связывания вашего исходного кода в исполняемую программу)
 
 
-![riscv7](https://github.com/user-attachments/assets/2de58100-cdd9-4320-b7e2-b9d19968223b)
+![qemu1](https://github.com/user-attachments/assets/e4cb10e0-6e92-4d13-a0d8-5500fbc56d10)
+
 
 
 
@@ -17,7 +18,8 @@
 1. Написание программы для вычисления факториала для архитектуры RISC-V
 
 
-![riscv2](https://github.com/user-attachments/assets/7326be99-3f3f-4cd9-8526-942e5a6b1019)
+![qemufactorial](https://github.com/user-attachments/assets/d647e31b-b78c-4685-9187-47c47f402101)
+
 
 
 
@@ -25,7 +27,8 @@
 2. Написание программы для вычисления числа Фибоначчи для архитектуры RISC-V
 
 
-![riscv3](https://github.com/user-attachments/assets/24755859-04fc-43c5-9a37-0600e59bbe25)
+![qemufibo](https://github.com/user-attachments/assets/0d4944fa-2345-48c6-854e-4a76dd61cea0)
+
 
 
 3. Написание модульного теста с использованием C
@@ -35,24 +38,32 @@
 
 - Уже написанная программа будет вызвана и протестирована на C
 - Поэтому я удалил системные вызовы для печати и остановки симулятора, поскольку они не нужны при вызове из C
-4. Создайте файл CMakeLists для системы сборки, которая генерирует собственные скрипты сборки
+4. Создайте файл Makefile для системы сборки, которая генерирует собственные скрипты сборки
 
 
-![riscv1](https://github.com/user-attachments/assets/2426862d-47bb-4e0a-8489-17be099248b1)
+![qemu2](https://github.com/user-attachments/assets/95e5f36e-70fd-4bfb-8e7f-c176d4560c6d)
+
+
+5. Запустить программу локально
+
+
+
+![qemutest3](https://github.com/user-attachments/assets/92c91a1e-ed54-416e-abd9-bcbfb12f8a09)
+
 
   
-5. Измените файл yaml для поддержки задачи CI/CD RISC-V
+6. Измените файл yaml для поддержки задачи CI/CD RISC-V
+
+
+![qemucicd](https://github.com/user-attachments/assets/b4c9d78e-db23-4453-b977-c3a108ba1a64)
+    
+
+
+7. Запустите CI/CD
 
 
 
-![riscv8](https://github.com/user-attachments/assets/a04fac90-846b-4201-8612-c850028a7819)
-
-
-6. Запустите CI/CD
-
-
-
-![riscv5](https://github.com/user-attachments/assets/d33a9d51-6469-4f84-8f33-b1c5af578219)
+![qemuunittest](https://github.com/user-attachments/assets/b8ea98f1-f721-4969-901f-4e0f1d7226e6)
 
 
 
