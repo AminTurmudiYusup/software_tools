@@ -1,5 +1,5 @@
-    .section .text
-    .global factorial
+.section .text
+.global factorial
 
 factorial:
     addi sp, sp, -16          # Allocate stack space (16-byte aligned)

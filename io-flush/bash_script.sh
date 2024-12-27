@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Name of the C file and output executable
-C_FILE="01.IO_flush/first_io.c"
+C_FILE="io-flush/first_io.c"
 OUTPUT_FILE="program"
 
 # Compile the program

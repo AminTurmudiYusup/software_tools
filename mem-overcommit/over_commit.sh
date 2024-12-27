@@ -1,7 +1,7 @@
 #!/bin/sh
 
 # Compile the C program
-gcc -o overcommit 02_MEM_OVERCOMMIT/over_commit.c
+gcc -o overcommit mem-overcommit/over_commit.c
 
 if [ $? -ne 0 ]; then
     echo "Compilation failed."
