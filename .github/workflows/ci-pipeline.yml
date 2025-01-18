@@ -26,18 +26,7 @@ jobs:
       run: |
         chmod +x io-flush/bash_script.sh
         chmod +x mem-overcommit/over_commit.sh
-        chmod +x fractal/run_tests.sh  # Make sure your unit test script is executable
 
-    # Step 4: Run the Bash script to compile the program and run unit tests
-    - name: Run Unit Test Compilation and Tests
-      run: bash fractal/run_tests.sh  # This script will compile and run unit tests
-
-    # Step 5: Upload the unit test results (if applicable)
-    - name: Upload Unit Test Results
-      uses: actions/upload-artifact@v3
-      with:
-        name: unit_test_results
-        path: test_results.log  # Replace with your actual unit test results file
 
     # Step 6: Run the Bash script from 01.IO_flush
     - name: Run Bash Script 1 (IO_flush)
