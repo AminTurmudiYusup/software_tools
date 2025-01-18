@@ -1,59 +1,54 @@
-## Предварительное условие
-1. Убедитесь, что CMake уже включен в CI/CD github (эти инструменты используются для автоматизации процесса компиляции и связывания вашего исходного кода в исполняемую программу)
+## Фрактал
+1. Создать image.h (заголовочный файл, содержащий объявление, может быть общим для нескольких исходных файлов)
 
-
-![riscv7](https://github.com/user-attachments/assets/2de58100-cdd9-4320-b7e2-b9d19968223b)
-
-
-
-2. Убедитесь, что симулятор включен в CI/CD github, я использую qemu (с поддержкой RISC-V)
-
-
-![riscv6](https://github.com/user-attachments/assets/f8e3a8bc-94a5-4873-9e53-a77e88b6e3a4)
-
-
-
-## Написание и тестирование программы
-1. Написание программы для вычисления факториала для архитектуры RISC-V
-
-
-![riscv2](https://github.com/user-attachments/assets/7326be99-3f3f-4cd9-8526-942e5a6b1019)
+![fractal1](https://github.com/user-attachments/assets/f5e00c9e-a09e-4ce8-9184-5ecfbc53de93)
 
 
 
 
-2. Написание программы для вычисления числа Фибоначчи для архитектуры RISC-V
+2. Создать image.c (реальная реализация программы)
+
+      - create_image
+      - clear_image
+      - Заполняет изображение случайными значениями пикселей, сгенерированными rand()
+      - Освобождает память, выделенную как для данных пикселей изображения, так и для структуры изображения
+      - пиксельная операция (установить и получить)
+      - Сохранение изображения в формате PGM
 
 
-![riscv3](https://github.com/user-attachments/assets/24755859-04fc-43c5-9a37-0600e59bbe25)
-
-
-3. Написание модульного теста с использованием C
-
-
-![riscv4](https://github.com/user-attachments/assets/62a99292-e6fd-421c-9d1f-05b85e85665a)
-
-- Уже написанная программа будет вызвана и протестирована на C
-- Поэтому я удалил системные вызовы для печати и остановки симулятора, поскольку они не нужны при вызове из C
-4. Создайте файл CMakeLists для системы сборки, которая генерирует собственные скрипты сборки
-
-
-![riscv1](https://github.com/user-attachments/assets/2426862d-47bb-4e0a-8489-17be099248b1)
-
-  
-5. Измените файл yaml для поддержки задачи CI/CD RISC-V
+![fractal2](https://github.com/user-attachments/assets/4430cbd8-d073-4519-bfd6-fa149045e16e)
 
 
 
-![riscv8](https://github.com/user-attachments/assets/a04fac90-846b-4201-8612-c850028a7819)
+3. создать fractal.h (заголовочный файл, содержащий объявление)
 
 
-6. Запустите CI/CD
+![fractal3](https://github.com/user-attachments/assets/a6ebd1ad-679d-4c37-a7eb-3f26b7942c5f)
 
 
 
-![riscv5](https://github.com/user-attachments/assets/d33a9d51-6469-4f84-8f33-b1c5af578219)
+4. Создать fractals.c или файл реализации (для создания фрактального изображения)
 
+![fractal4](https://github.com/user-attachments/assets/05637994-00b0-4595-9158-e73de2f00848)
+
+
+
+5. добавить модульный тест для фрактальной функции
+
+   
+
+![fractal5](https://github.com/user-attachments/assets/bb81d964-4213-4231-90fa-0ef68ff5a451)
+
+
+6. сгенерированное изображение в локальной памяти.
+
+
+![fractal6](https://github.com/user-attachments/assets/4bf0cfd0-bbb5-4dd3-b51d-e2ff080dc0b6)
+
+
+7. модульный тест в локальном
+
+   ![image](https://github.com/user-attachments/assets/9533878b-aa78-4ea4-a928-7f2909fdd824)
 
 
 ## Заключение
