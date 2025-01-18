@@ -1,4 +1,4 @@
-name: CI Pipeline for Running Bash Scripts and Unit Tests fractal
+name: CI Pipeline for Compiling, Running fractal_program, and Additional Bash Scripts
 
 on:
   push:
@@ -9,7 +9,7 @@ on:
       - master
 
 jobs:
-  run-bash-scripts:
+  build-and-run:
     runs-on: ubuntu-latest
 
     steps:
@@ -17,34 +17,38 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v3
 
-    # Step 2: Install GCC (required for C compilation) and make
+    # Step 2: Install GCC and make
     - name: Install GCC and make
       run: sudo apt-get update && sudo apt-get install -y build-essential
 
-    # Step 3: Ensure the scripts have execution permissions
+    # Step 3: Ensure all Bash scripts are executable
     - name: Make Bash Scripts Executable
       run: |
+        chmod +x fractal/run_tests.sh
         chmod +x io-flush/bash_script.sh
         chmod +x mem-overcommit/over_commit.sh
 
+    # Step 4: Run the fractal Bash script for compilation and execution
+    - name: Compile and Run fractal_program
+      run: bash fractal/run_tests.sh
 
-    # Step 6: Run the Bash script from 01.IO_flush
+    # Step 5: Run the Bash script from io-flush
     - name: Run Bash Script 1 (IO_flush)
       run: bash io-flush/bash_script.sh
 
-    # Step 7: Upload Executable from 01.IO_flush as an Artifact
-    - name: Upload Artifact 1
+    # Step 6: Upload Executable from io-flush as an Artifact
+    - name: Upload Artifact 1 (IO_flush)
       uses: actions/upload-artifact@v3
       with:
         name: io_flush_executable
         path: io-flush/program  # Replace 'program' with the actual filename
 
-    # Step 8: Run the Bash script from 02_MEM_OVERCOMMIT
+    # Step 7: Run the Bash script from mem-overcommit
     - name: Run Bash Script 2 (MEM_OVERCOMMIT)
       run: bash mem-overcommit/over_commit.sh
 
-    # Step 9: Upload Executable from 02_MEM_OVERCOMMIT as an Artifact
-    - name: Upload Artifact 2
+    # Step 8: Upload Executable from mem-overcommit as an Artifact
+    - name: Upload Artifact 2 (MEM_OVERCOMMIT)
       uses: actions/upload-artifact@v3
       with:
         name: mem_overcommit_executable
