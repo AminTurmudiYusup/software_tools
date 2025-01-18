@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# Navigate to the fractal directory
+cd "$(dirname "$0")"
+
 # Step 1: Run make to compile the program
 echo "Compiling the program using make..."
 make
@@ -8,7 +11,7 @@ make
 if [ $? -eq 0 ]; then
     echo "Compilation successful!"
 
-    # Step 2: Run the compiled program (fractal_program)
+    # Step 2: Run the compiled program
     echo "Running the compiled program..."
     ./fractal_program
 else
